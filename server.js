@@ -26,7 +26,7 @@ app.use(bodyParser.json({
 }));
 
 app.get('/', (req, res)=> { res.send(" NO WORRIES, IT WORKS! ") })
-app.post('/signin', signin.handleSignin(db, bcrypt))
+app.post('/signin', signin.signInAuthentication(db, bcrypt))
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
 app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db)})
 app.post('./profile/:id', (req, res) => { profile.handleProfileUpdate(req, res, db)}) //profile update
