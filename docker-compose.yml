@@ -1,0 +1,38 @@
+version: '3.6'
+
+services:
+
+  # Backend API
+  smart-brain-api:
+    container_name: backend
+    # image: node:carbon
+    build: ./
+    command: npm start
+    working_dir: /usr/src/smart-brain-api
+    environment:
+      POSTGRES_URI: postgres://jcromualdo:secret@postgres:5432/test
+      REDIS_URI: redis://redis:6379
+    links:
+      - postgres
+      - redis 
+    ports: 
+      - "3000:3000"
+    volumes: # allows access to the file system and monitor changes
+      - ./:/usr/src/smart-brain-api
+
+  # Postgress
+  postgres:
+    environment:
+      POSTGRES_USER: jcromualdo
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: test
+      POSTGRES_HOST: postgres
+    build: ./postgres
+    ports:
+      - "5432:5432"
+
+  # Redis
+  redis:
+    image: redis
+    ports: 
+      - "6379:6379"
