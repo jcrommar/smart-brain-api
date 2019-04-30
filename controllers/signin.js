@@ -67,5 +67,6 @@ const signInAuthentication = (db, bcrypt) => (req, res) => {
     .catch(err => res.status(400).json(err))
 }
 module.exports = {
-  signInAuthentication: signInAuthentication
+  signInAuthentication: signInAuthentication,
+  redisClient: redisClient
 }
